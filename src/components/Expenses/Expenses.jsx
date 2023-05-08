@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Card from "../Card/Card";
-import ExpenseItem from "./ExpenseItem/ExpenseItem";
+
 import styles from "./Expenses.module.css";
 import NewExpense from "./NewExpense/NewExpense";
 import ExpensesFilter from "./ExpenseFilter/ExpenseFilter";
+import ExpensesList from "./ExpensesList/ExpensesList";
+import ExpensesChart from "./ExpensesChart/ExpensesChart";
 
 const initialState = [
     {
@@ -56,16 +58,12 @@ const Expenses = () => {
             <Card className={styles.expenses}>
                 <>
                     <ExpensesFilter onFilterChange={onFilterChange} />
+
                     <NewExpense onExpenseAdd={onExpenseAddHandler} />
-                    {filteredExpenses.map((expense) => (
-                        <ExpenseItem
-                            key={expense.id}
-                            id={expense.id}
-                            title={expense.title}
-                            amount={expense.amount}
-                            date={expense.date}
-                        />
-                    ))}
+                    {filterYear && (
+                        <ExpensesChart expenses={filteredExpenses} />
+                    )}
+                    <ExpensesList expenses={filteredExpenses} />
                 </>
             </Card>
         </>
