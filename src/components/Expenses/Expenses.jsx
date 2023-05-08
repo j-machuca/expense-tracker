@@ -53,9 +53,9 @@ const Expenses = () => {
 
     return (
         <>
-            <ExpensesFilter onFilterChange={onFilterChange} />
             <Card className={styles.expenses}>
                 <>
+                    <ExpensesFilter onFilterChange={onFilterChange} />
                     <NewExpense onExpenseAdd={onExpenseAddHandler} />
                     {filteredExpenses.map((expense) => (
                         <ExpenseItem
