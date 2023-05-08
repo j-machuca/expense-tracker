@@ -27,7 +27,11 @@ const ExpenseForm = (props) => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const date = new Date(state.date);
-        props.onSaveExpense({ ...state, date });
+        props.onSaveExpense({
+            ...state,
+            date,
+            amount: parseFloat(state.amount),
+        });
         setState(initialState);
     };
 

@@ -3,6 +3,7 @@ import Card from "../Card/Card";
 import ExpenseItem from "./ExpenseItem/ExpenseItem";
 import styles from "./Expenses.module.css";
 import NewExpense from "./NewExpense/NewExpense";
+import ExpensesFilter from "./ExpenseFilter/ExpenseFilter";
 
 const initialState = [
     {
@@ -34,27 +35,40 @@ const initialState = [
 const Expenses = () => {
     const [expenses, setExpenses] = useState(initialState);
 
+    const [filterYear, setFilterYear] = useState();
+
+    const filteredExpenses = filterYear
+        ? expenses.filter((expense) => expense.date.getFullYear() == filterYear)
+        : expenses;
+
     const onExpenseAddHandler = (expenseData) => {
         setExpenses((prevState) => {
             return [expenseData, ...prevState];
         });
     };
 
+    const onFilterChange = (e) => {
+        setFilterYear(e.target.value);
+    };
+
     return (
-        <Card className={styles.expenses}>
-            <>
-                <NewExpense onExpenseAdd={onExpenseAddHandler} />
-                {expenses.map((expense) => (
-                    <ExpenseItem
-                        key={expense.id}
-                        id={expense.id}
-                        title={expense.title}
-                        amount={expense.amount}
-                        date={expense.date}
-                    />
-                ))}
-            </>
-        </Card>
+        <>
+            <ExpensesFilter onFilterChange={onFilterChange} />
+            <Card className={styles.expenses}>
+                <>
+                    <NewExpense onExpenseAdd={onExpenseAddHandler} />
+                    {filteredExpenses.map((expense) => (
+                        <ExpenseItem
+                            key={expense.id}
+                            id={expense.id}
+                            title={expense.title}
+                            amount={expense.amount}
+                            date={expense.date}
+                        />
+                    ))}
+                </>
+            </Card>
+        </>
     );
 };
 
