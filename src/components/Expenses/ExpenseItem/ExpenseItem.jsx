@@ -14,10 +14,6 @@ import styles from "./ExpenseItem.module.css";
 const ExpenseItem = (props) => {
     const [title, setTitle] = useState(props.title);
 
-    const onClickHandler = () => {
-        setTitle("Title Changed");
-    };
-
     return (
         <Card className={styles["expense-item"]}>
             <>
@@ -28,7 +24,6 @@ const ExpenseItem = (props) => {
                 <div className={styles["expense-item__price"]}>
                     $ {props.amount}
                 </div>
-                <button onClick={onClickHandler}>Change Title</button>
             </>
         </Card>
     );
